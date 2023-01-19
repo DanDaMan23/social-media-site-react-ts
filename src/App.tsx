@@ -1,10 +1,14 @@
 import { FC } from "react"
-import Button from "react-bootstrap/Button"
+import { Routes, Route } from "react-router-dom"
 
 const App: FC = () => {
   return (
     <div className='App'>
-      <Button variant='primary'>Primary</Button>
+      <Routes>
+        <Route path='/login' element={<>Login</>} />
+        <Route path='/register' element={<>Register</>} />
+        <Route path='/home' element={<>Login Success</>} />
+      </Routes>
     </div>
   )
 }
