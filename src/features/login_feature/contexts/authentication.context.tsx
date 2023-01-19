@@ -16,14 +16,12 @@ const AuthenticationContextProvider: FC<{ children: ReactNode }> = ({
   const [token, setToken] = useState<string>("")
 
   const loginHandler = async (username: string, password: string) => {
-    const response = await fetch("http://127.0.0.1:8000/api-token-auth/", {
+    const response = await fetch("/api-token-auth/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password })
     })
-    console.log("execute login handler")
-    const res = await response.json()
-    console.log(res)
+    setToken((await response.json())!.token)
   }
 
   const contextValue: IAuthenticationContext = {

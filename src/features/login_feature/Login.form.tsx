@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form"
 import { AuthenticationContext } from "./contexts/authentication.context"
 
 const LoginForm: FC = () => {
-  const { login } = useContext(AuthenticationContext)
+  const { login, token } = useContext(AuthenticationContext)
 
   return (
     <Form>
@@ -21,6 +21,7 @@ const LoginForm: FC = () => {
       <Button
         onClick={() => {
           login("aTate", "Password123$")
+          console.log(token)
         }}
         variant='primary'
         type='button'
