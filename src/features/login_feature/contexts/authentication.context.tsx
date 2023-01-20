@@ -1,4 +1,5 @@
-import { createContext, FC, ReactNode, useState } from "react"
+import { createContext, FC, ReactNode } from "react"
+import { useSessionStorage } from "usehooks-ts"
 
 interface IAuthenticationContext {
   token: string
@@ -13,7 +14,7 @@ export const AuthenticationContext = createContext<IAuthenticationContext>({
 const AuthenticationContextProvider: FC<{ children: ReactNode }> = ({
   children
 }) => {
-  const [token, setToken] = useState<string>("")
+  const [token, setToken] = useSessionStorage<string>("token", "")
 
   const loginHandler = async (username: string, password: string) => {
     const response = await fetch("/api-token-auth/", {
@@ -21,7 +22,8 @@ const AuthenticationContextProvider: FC<{ children: ReactNode }> = ({
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password })
     })
-    setToken((await response.json())!.token)
+    const result = await response.json()
+    setToken(result.token)
   }
 
   const contextValue: IAuthenticationContext = {
