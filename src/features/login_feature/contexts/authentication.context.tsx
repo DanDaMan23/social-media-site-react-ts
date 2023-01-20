@@ -10,7 +10,7 @@ interface IAuthenticationContext {
 
 export const AuthenticationContext = createContext<IAuthenticationContext>({
   token: "",
-  login: (username: string, password: string) => {},
+  login: () => {},
   error: null
 })
 
