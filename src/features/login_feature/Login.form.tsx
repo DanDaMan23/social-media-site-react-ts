@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect } from "react"
+import { FC, useContext } from "react"
 import { useForm } from "react-hook-form"
 import Button from "react-bootstrap/Button"
 import Form from "react-bootstrap/Form"
@@ -15,13 +15,13 @@ const LoginForm: FC = () => {
     register,
     handleSubmit,
     watch,
-    formState: { errors }
-  } = useForm<ILoginFields>()
-
-  useEffect(() => {
-    console.log(watch("username"))
-    console.log(watch("password"))
-  }, [watch])
+    formState: { errors, isValid }
+  } = useForm<ILoginFields>({
+    defaultValues: {
+      username: "",
+      password: ""
+    }
+  })
 
   return (
     <Form
@@ -35,8 +35,9 @@ const LoginForm: FC = () => {
         <Form.Control
           type='text'
           placeholder='Enter email'
-          {...register("username")}
+          {...register("username", { required: true })}
         />
+        {errors.username && "Username Required"}
       </Form.Group>
 
       <Form.Group className='mb-3' controlId='formBasicPassword'>
@@ -44,11 +45,12 @@ const LoginForm: FC = () => {
         <Form.Control
           type='password'
           placeholder='Password'
-          {...register("password")}
+          {...register("password", { required: true })}
         />
+        {errors.password && "Password Required"}
       </Form.Group>
 
-      <Button variant='primary' type='submit'>
+      <Button variant='primary' type='submit' disabled={!isValid}>
         Submit
       </Button>
     </Form>
