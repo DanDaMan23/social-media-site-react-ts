@@ -10,7 +10,7 @@ interface ILoginFields {
 }
 
 const LoginForm: FC = () => {
-  const { login, token } = useContext(AuthenticationContext)
+  const { login, error } = useContext(AuthenticationContext)
   const {
     register,
     handleSubmit,
@@ -27,7 +27,6 @@ const LoginForm: FC = () => {
     <Form
       onSubmit={handleSubmit(() => {
         login(watch("username"), watch("password"))
-        console.log(token)
       })}
     >
       <Form.Group className='mb-3' controlId='formBasicEmail'>
@@ -49,7 +48,7 @@ const LoginForm: FC = () => {
         />
         {errors.password && "Password Required"}
       </Form.Group>
-
+      {error && <p>{error}</p>}
       <Button variant='primary' type='submit' disabled={!isValid}>
         Submit
       </Button>
