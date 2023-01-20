@@ -1,31 +1,54 @@
-import { FC, useContext } from "react"
+import { FC, useContext, useEffect } from "react"
+import { useForm } from "react-hook-form"
 import Button from "react-bootstrap/Button"
 import Form from "react-bootstrap/Form"
 import { AuthenticationContext } from "./contexts/authentication.context"
 
+interface ILoginFields {
+  username: string
+  password: string
+}
+
 const LoginForm: FC = () => {
   const { login, token } = useContext(AuthenticationContext)
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors }
+  } = useForm<ILoginFields>()
+
+  useEffect(() => {
+    console.log(watch("username"))
+    console.log(watch("password"))
+  }, [watch])
 
   return (
-    <Form>
+    <Form
+      onSubmit={handleSubmit(() => {
+        login(watch("username"), watch("password"))
+        console.log(token)
+      })}
+    >
       <Form.Group className='mb-3' controlId='formBasicEmail'>
         <Form.Label>Username</Form.Label>
-        <Form.Control type='email' placeholder='Enter email' />
+        <Form.Control
+          type='text'
+          placeholder='Enter email'
+          {...register("username")}
+        />
       </Form.Group>
 
       <Form.Group className='mb-3' controlId='formBasicPassword'>
         <Form.Label>Password</Form.Label>
-        <Form.Control type='password' placeholder='Password' />
+        <Form.Control
+          type='password'
+          placeholder='Password'
+          {...register("password")}
+        />
       </Form.Group>
 
-      <Button
-        onClick={() => {
-          login("aTate", "Password123$")
-          console.log(token)
-        }}
-        variant='primary'
-        type='button'
-      >
+      <Button variant='primary' type='submit'>
         Submit
       </Button>
     </Form>
