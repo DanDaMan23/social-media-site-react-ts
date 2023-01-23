@@ -1,22 +1,20 @@
-import { FC } from "react"
+import { FC, useContext } from "react"
 import { Button, Form } from "react-bootstrap"
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
-
-interface IUserRegistrationFormFields {
-  first_name: string
-  last_name: string
-  username: string
-  email: string
-  password: string
-  confirm_password: string
-}
+import { SubmitHandler, useForm } from "react-hook-form"
+import { UserRegistrationContext } from "../contexts/user-registration.context"
+import IUserRegistrationFormFields from "./user-registration.form.interface"
 
 const UserRegistrationForm: FC = () => {
-  const { register, handleSubmit } = useForm()
-  const onSubmit: SubmitHandler<IUserRegistrationFormFields | FieldValues> = (
-    data
-  ) => {
-    console.log(data)
+  const { createUserHandler } = useContext(UserRegistrationContext)
+
+  const {
+    register,
+    handleSubmit,
+    formState: { isValid }
+  } = useForm<IUserRegistrationFormFields>()
+
+  const onSubmit: SubmitHandler<IUserRegistrationFormFields> = (data) => {
+    createUserHandler(data)
   }
 
   return (
@@ -75,7 +73,7 @@ const UserRegistrationForm: FC = () => {
         />
       </Form.Group>
 
-      <Button variant='primary' type='submit'>
+      <Button variant='primary' type='submit' disabled={!isValid}>
         Submit
       </Button>
     </Form>
