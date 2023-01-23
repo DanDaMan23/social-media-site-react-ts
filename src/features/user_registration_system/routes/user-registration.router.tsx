@@ -6,7 +6,6 @@ const UserRegistrationRouter: FC = () => {
   return (
     <Routes>
       <Route path='/' element={<UserRegistrationForm />} />
-      <Route path='/review' element={<>Review</>} />
       <Route path='/complete' element={<>Complete</>} />
     </Routes>
   )
