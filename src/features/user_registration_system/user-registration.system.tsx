@@ -1,12 +1,12 @@
 import { FC } from "react"
 import UserRegistrationContextProvider from "./contexts/user-registration.context"
-import UserRegistrationForm from "./forms/user-registration.form"
+import UserRegistrationRouter from "./routes/user-registration.router"
 
 const UserRegistrationSystem: FC = () => {
   return (
     <UserRegistrationContextProvider>
       Registration System
-      <UserRegistrationForm />
+      <UserRegistrationRouter />
     </UserRegistrationContextProvider>
   )
 }

@@ -21,7 +21,7 @@ const AppRouter: FC = () => {
       )}
 
       {!token && (
-        <Route path='/register' element={<UserRegistrationSystem />} />
+        <Route path='/register//*' element={<UserRegistrationSystem />} />
       )}
       {token && <Route path='/home' element={<>Login Success</>} />}
       <Route path='*' element={<Navigate to={token ? "/home" : "/login"} />} />
