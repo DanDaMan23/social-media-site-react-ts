@@ -11,7 +11,7 @@ interface IConfirmModal {
 const ConfirmModal: FC<IConfirmModal> = ({ id, show, onClose, onSubmit }) => {
   return (
     <>
-      <Modal show={show} onHide={onClose}>
+      <Modal id={id} show={show} onHide={onClose}>
         <Modal.Header closeButton>
           <Modal.Title>Confirm Registration</Modal.Title>
         </Modal.Header>

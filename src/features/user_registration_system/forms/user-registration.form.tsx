@@ -1,24 +1,15 @@
-import { FC, useContext } from "react"
-import { Button, Form } from "react-bootstrap"
-import { SubmitHandler, useForm } from "react-hook-form"
-import { UserRegistrationContext } from "../contexts/user-registration.context"
+import { FC } from "react"
+import { Form } from "react-bootstrap"
+import { UseFormRegister } from "react-hook-form"
 import IUserRegistrationFormFields from "./user-registration.form.interface"
 
-const UserRegistrationForm: FC = () => {
-  const { createUserHandler } = useContext(UserRegistrationContext)
+interface IUserRegistrationForm {
+  register: UseFormRegister<IUserRegistrationFormFields>
+}
 
-  const {
-    register,
-    handleSubmit,
-    formState: { isValid }
-  } = useForm<IUserRegistrationFormFields>()
-
-  const onSubmit: SubmitHandler<IUserRegistrationFormFields> = (data) => {
-    createUserHandler(data)
-  }
-
+const UserRegistrationForm: FC<IUserRegistrationForm> = ({ register }) => {
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form>
       <Form.Group className='mb-3'>
         <Form.Label>First Name</Form.Label>
         <Form.Control
@@ -72,10 +63,6 @@ const UserRegistrationForm: FC = () => {
           {...register("confirm_password", { required: true })}
         />
       </Form.Group>
-
-      <Button variant='primary' type='submit' disabled={!isValid}>
-        Submit
-      </Button>
     </Form>
   )
 }

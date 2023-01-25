@@ -35,7 +35,7 @@ const UserRegistrationContextProvider: FC<{ children: ReactNode }> = ({
     if (response.ok) {
       const result = await response.json()
       setSuccess(result)
-      navigate("/login")
+      navigate("/register/complete")
     } else {
       setError("Error")
     }
