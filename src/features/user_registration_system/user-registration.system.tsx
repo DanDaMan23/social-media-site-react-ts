@@ -5,7 +5,7 @@ import UserRegistrationRouter from "./routes/user-registration.router"
 const UserRegistrationSystem: FC = () => {
   return (
     <UserRegistrationContextProvider>
-      Registration System
+      <h1>User Registration</h1>
       <UserRegistrationRouter />
     </UserRegistrationContextProvider>
   )

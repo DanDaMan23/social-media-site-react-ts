@@ -37,7 +37,7 @@ const UserRegistrationContextProvider: FC<{ children: ReactNode }> = ({
       setSuccess(result)
       navigate("/register/complete")
     } else {
-      setError("Error")
+      setError("User Registration Failed")
     }
   }
 
