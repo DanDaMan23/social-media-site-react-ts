@@ -1,43 +1,45 @@
-import { createContext, FC, ReactNode, useContext, useState } from "react"
+import { createContext, FC, ReactNode, useContext, useEffect, useState } from "react"
 import { AuthenticationContext } from "../../login_feature/contexts/authentication.context"
+import PostModel from "../models/post.model"
 
 interface ISocialMediaPostsContext {
-  getUserHandler: () => void
-  success: string | null
+  posts: PostModel[]
   error: string | null
 }
 
 export const SocialMediaPostsContext = createContext<ISocialMediaPostsContext>({
-  getUserHandler: () => {},
-  success: null,
+  posts: [],
   error: null
 })
 
 const SocialMediaPostsContextProvider: FC<{ children: ReactNode }> = ({
   children
 }) => {
-  const [success, setSuccess] = useState<string | null>(null)
+  const [posts, setPosts] = useState<PostModel[]>([])
   const [error, setError] = useState<string | null>(null)
 
   const { token } = useContext(AuthenticationContext)
 
-  const getUserHandler = async () => {
-    const response = await fetch("/posts/", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authentication: `Token ${token}`
-      }
-    })
-    const result = await response.json()
-    console.log(result)
-  }
+  useEffect(() => {
+    const apiCall = async () => {
+      const response = await fetch("/posts/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authentication: `Token ${token}`
+        }
+      })
+      const data = await response.json()
+      setPosts(data.results)
+    }
+    apiCall()
+  }, [token])
 
   const contextValue: ISocialMediaPostsContext = {
-    getUserHandler,
-    success,
+    posts,
     error
   }
+
   return (
     <SocialMediaPostsContext.Provider value={contextValue}>
       {children}
