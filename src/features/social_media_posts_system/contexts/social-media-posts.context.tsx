@@ -1,4 +1,11 @@
-import { createContext, FC, ReactNode, useContext, useEffect, useState } from "react"
+import {
+  createContext,
+  FC,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState
+} from "react"
 import { AuthenticationContext } from "../../login_feature/contexts/authentication.context"
 import PostModel from "../models/post.model"
 
@@ -22,15 +29,19 @@ const SocialMediaPostsContextProvider: FC<{ children: ReactNode }> = ({
 
   useEffect(() => {
     const apiCall = async () => {
-      const response = await fetch("/posts/", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authentication: `Token ${token}`
-        }
-      })
-      const data = await response.json()
-      setPosts(data.results)
+      try {
+        const response = await fetch("/posts/", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authentication: `Token ${token}`
+          }
+        })
+        const data = await response.json()
+        setPosts(data.results)
+      } catch (e) {
+        setError((e as Error).message)
+      }
     }
     apiCall()
   }, [token])

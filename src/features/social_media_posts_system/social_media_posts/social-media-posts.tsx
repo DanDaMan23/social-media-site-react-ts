@@ -1,5 +1,6 @@
-import { FC, useContext, useEffect, useState } from "react"
+import { FC, useContext, useEffect } from "react"
 import { SocialMediaPostsContext } from "../contexts/social-media-posts.context"
+import SocialMediaPost from "./social_media_post/social-media-post"
 
 const SocialMediaPosts: FC = () => {
   const { posts } = useContext(SocialMediaPostsContext)
@@ -8,7 +9,13 @@ const SocialMediaPosts: FC = () => {
     console.log(posts)
   }, [posts])
 
-  return <></>
+  return (
+    <>
+      {posts.map(({ id, content, user }) => (
+        <SocialMediaPost key={id} body={content} title={`${user}`} />
+      ))}
+    </>
+  )
 }
 
 export default SocialMediaPosts
