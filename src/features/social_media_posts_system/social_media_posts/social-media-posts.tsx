@@ -11,8 +11,8 @@ const SocialMediaPosts: FC = () => {
 
   return (
     <>
-      {posts.map(({ id, content, user }) => (
-        <SocialMediaPost key={id} body={content} title={`${user}`} />
+      {posts.map(({ id, content, username }) => (
+        <SocialMediaPost key={id} body={content} user={username}/>
       ))}
     </>
   )

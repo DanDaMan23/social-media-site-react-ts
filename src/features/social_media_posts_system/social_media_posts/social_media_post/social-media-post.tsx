@@ -2,15 +2,15 @@ import { FC } from "react"
 import { Card } from "react-bootstrap"
 
 interface ISocialMediaPost {
-  title: string
+  user: string
   body: string
 }
 
-const SocialMediaPost: FC<ISocialMediaPost> = ({ title, body }) => {
+const SocialMediaPost: FC<ISocialMediaPost> = ({ user, body }) => {
   return (
     <Card>
       <Card.Body>
-        <Card.Title>{title}</Card.Title>
+        <Card.Title>{user}</Card.Title>
         <Card.Body>{body}</Card.Body>
       </Card.Body>
     </Card>

@@ -1,13 +1,13 @@
 export default class PostModel {
   id: number
   content: string
-  user: number
+  username: string
   comment: number[]
 
-  constructor(id: number, content: string, user: number, comment: number[]) {
+  constructor(id: number, content: string, username: string, comment: number[]) {
     this.id = id
     this.content = content
-    this.user = user
+    this.username = username
     this.comment = comment
   }
 }
