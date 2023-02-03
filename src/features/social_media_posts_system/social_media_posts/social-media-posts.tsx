@@ -1,4 +1,4 @@
-import { FC, useContext } from "react"
+import { FC, useContext, useEffect } from "react"
 import InfiniteScroll from "react-infinite-scroller"
 import { Spinner, Stack } from "react-bootstrap"
 import { SocialMediaPostsContext } from "../contexts/social-media-posts.context"
@@ -8,6 +8,10 @@ const SocialMediaPosts: FC = () => {
   const { posts, getNextPost, hasMorePosts } = useContext(
     SocialMediaPostsContext
   )
+
+  useEffect(() => {
+    console.log(posts)
+  }, [posts])
 
   return (
     <InfiniteScroll
@@ -19,7 +23,7 @@ const SocialMediaPosts: FC = () => {
         </div>
       }
     >
-      <Stack gap={3}>
+      <Stack key='posts' gap={3}>
         {posts.map(({ id, content, username, date_created }, index) => (
           <SocialMediaPost
             key={id}

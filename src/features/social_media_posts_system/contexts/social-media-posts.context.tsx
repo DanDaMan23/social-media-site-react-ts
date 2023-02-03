@@ -56,8 +56,8 @@ const SocialMediaPostsContextProvider: FC<{ children: ReactNode }> = ({
   const getNextPost = async () => {
     if (nextPostsLink) {
       try {
-        // Have proper API call
-        const response = await fetch("/posts/?page=2", {
+        const { pathname, search } = new URL(nextPostsLink)
+        const response = await fetch(`${pathname}${search}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
