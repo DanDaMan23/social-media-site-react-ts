@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect } from "react"
+import { FC, useContext } from "react"
 import InfiniteScroll from "react-infinite-scroller"
 import { Spinner, Stack } from "react-bootstrap"
 import { SocialMediaPostsContext } from "../contexts/social-media-posts.context"
@@ -9,16 +9,16 @@ const SocialMediaPosts: FC = () => {
     SocialMediaPostsContext
   )
 
-  useEffect(() => {
-    console.log(posts)
-  }, [posts])
-
   return (
     <InfiniteScroll
+      pageStart={0}
       loadMore={getNextPost}
       hasMore={hasMorePosts}
       loader={
-        <div style={{ display: "flex", justifyContent: "center" }}>
+        <div
+          key='spinner'
+          style={{ display: "flex", justifyContent: "center" }}
+        >
           <Spinner animation='border' />
         </div>
       }
