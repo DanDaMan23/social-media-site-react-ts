@@ -5,7 +5,7 @@ import SocialMediaPosts from "./social_media_posts/social-media-posts"
 const SocialMediaPostsSystem: FC = () => {
   return (
     <SocialMediaPostsContextProvider>
-      Social Media Posts System
+      <h1>Social Media Posts System</h1>
       <SocialMediaPosts />
     </SocialMediaPostsContextProvider>
   )
