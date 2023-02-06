@@ -5,7 +5,6 @@ import {
   useCallback,
   useContext,
   useEffect,
-  useRef,
   useState
 } from "react"
 import { AuthenticationContext } from "../../login_feature/contexts/authentication.context"
