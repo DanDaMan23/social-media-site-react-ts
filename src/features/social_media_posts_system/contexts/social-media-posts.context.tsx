@@ -46,7 +46,6 @@ const SocialMediaPostsContextProvider: FC<{ children: ReactNode }> = ({
   const [createPostError, setCreatePostError] = useState<string | null>(null)
 
   const {
-    token,
     fetchWrapper: { get, post }
   } = useContext(AuthenticationContext)
   const initialGetPostsCall = useCallback(async () => {
