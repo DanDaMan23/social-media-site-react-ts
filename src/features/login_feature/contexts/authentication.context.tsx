@@ -2,16 +2,24 @@ import { createContext, FC, ReactNode, useState } from "react"
 import { useNavigate } from "react-router"
 import { useSessionStorage } from "usehooks-ts"
 
+interface IFetchWrapper {
+  get: (link: string) => Promise<globalThis.Response>
+}
+
 interface IAuthenticationContext {
   token: string
   login: (username: string, password: string) => void
   error: string | null
+  fetchWrapper: IFetchWrapper
 }
 
 export const AuthenticationContext = createContext<IAuthenticationContext>({
   token: "",
   login: () => {},
-  error: null
+  error: null,
+  fetchWrapper: {
+    get: () => new Promise<globalThis.Response>(() => {})
+  }
 })
 
 const AuthenticationContextProvider: FC<{ children: ReactNode }> = ({
@@ -38,10 +46,22 @@ const AuthenticationContextProvider: FC<{ children: ReactNode }> = ({
     }
   }
 
+  const get = async (link: string) =>
+    await fetch(link, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      }
+    })
+
   const contextValue: IAuthenticationContext = {
     token: token,
     login: loginHandler,
-    error: error
+    error: error,
+    fetchWrapper: {
+      get
+    }
   }
 
   return (

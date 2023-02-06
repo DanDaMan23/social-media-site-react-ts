@@ -45,23 +45,21 @@ const SocialMediaPostsContextProvider: FC<{ children: ReactNode }> = ({
   )
   const [createPostError, setCreatePostError] = useState<string | null>(null)
 
-  const { token } = useContext(AuthenticationContext)
+  const {
+    token,
+    fetchWrapper: { get }
+  } = useContext(AuthenticationContext)
   const initialGetPostsCall = useCallback(async () => {
     try {
-      const response = await fetch("/posts/", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Token ${token}`
-        }
-      })
+      const response = await get("/posts/")
       const jsonResponse = await response.json()
+
       setNextPostsLink(jsonResponse!.next)
       setPosts(jsonResponse.results)
     } catch (e) {
       setError((e as Error).message)
     }
-  }, [token])
+  }, [get])
 
   useEffect(() => {
     initialGetPostsCall()
