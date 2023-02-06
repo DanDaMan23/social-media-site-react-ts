@@ -4,6 +4,7 @@ import { useSessionStorage } from "usehooks-ts"
 
 interface IFetchWrapper {
   get: (link: string) => Promise<globalThis.Response>
+  post: (link: string, body: {}) => Promise<globalThis.Response>
 }
 
 interface IAuthenticationContext {
@@ -18,7 +19,8 @@ export const AuthenticationContext = createContext<IAuthenticationContext>({
   login: () => {},
   error: null,
   fetchWrapper: {
-    get: () => new Promise<globalThis.Response>(() => {})
+    get: () => new Promise<globalThis.Response>(() => {}),
+    post: () => new Promise<globalThis.Response>(() => {})
   }
 })
 
@@ -55,12 +57,23 @@ const AuthenticationContextProvider: FC<{ children: ReactNode }> = ({
       }
     })
 
+  const post = async (link: string, body: {}) =>
+    await fetch(link, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      },
+      body: JSON.stringify(body)
+    })
+
   const contextValue: IAuthenticationContext = {
     token: token,
     login: loginHandler,
     error: error,
     fetchWrapper: {
-      get
+      get,
+      post
     }
   }
 

@@ -47,7 +47,7 @@ const SocialMediaPostsContextProvider: FC<{ children: ReactNode }> = ({
 
   const {
     token,
-    fetchWrapper: { get }
+    fetchWrapper: { get, post }
   } = useContext(AuthenticationContext)
   const initialGetPostsCall = useCallback(async () => {
     try {
@@ -69,13 +69,7 @@ const SocialMediaPostsContextProvider: FC<{ children: ReactNode }> = ({
     if (nextPostsLink) {
       try {
         const { pathname, search } = new URL(nextPostsLink)
-        const response = await fetch(`${pathname}${search}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Token ${token}`
-          }
-        })
+        const response = await get(`${pathname}${search}`)
         const jsonResponse = await response.json()
         setNextPostsLink(jsonResponse!.next)
         setPosts((prevState) => [...prevState, ...jsonResponse.results])
@@ -89,16 +83,10 @@ const SocialMediaPostsContextProvider: FC<{ children: ReactNode }> = ({
     formFields: ICreateSocialMedialPostFormFields
   ) => {
     try {
-      const response = await fetch("/posts/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Token ${token}`
-        },
-        body: JSON.stringify({
-          content: formFields.postContent
-        })
+      const response = await post("/posts/", {
+        content: formFields.postContent
       })
+
       const jsonResponse = await response.json()
       setCreatePostSuccess(jsonResponse)
       initialGetPostsCall()
