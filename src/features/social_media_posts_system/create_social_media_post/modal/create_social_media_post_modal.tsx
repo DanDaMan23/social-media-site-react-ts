@@ -14,16 +14,20 @@ const CreateSocialMedialPostModal: FC<ICreateSocialMedialPostModal> = ({
   show,
   onClose
 }) => {
-  const { createNewPost } = useContext(SocialMediaPostsContext)
+  const { createNewPost } = useContext(
+    SocialMediaPostsContext
+  )
 
   const {
     register,
     handleSubmit,
     formState: { isValid }
   } = useForm<ICreateSocialMedialPostFormFields>()
-  const onSubmit: SubmitHandler<ICreateSocialMedialPostFormFields> = (data) => {
-    // console.log(data)
+  const onSubmit: SubmitHandler<ICreateSocialMedialPostFormFields> = async (
+    data
+  ) => {
     createNewPost(data)
+    onClose()
   }
 
   return (

@@ -2,8 +2,10 @@ import {
   createContext,
   FC,
   ReactNode,
+  useCallback,
   useContext,
   useEffect,
+  useRef,
   useState
 } from "react"
 import { AuthenticationContext } from "../../login_feature/contexts/authentication.context"
@@ -18,6 +20,7 @@ interface ISocialMediaPostsContext {
   hasMorePosts: boolean
   createPostSuccess: string | null
   createPostError: string | null
+  initialGetPostsCall: () => void
 }
 
 export const SocialMediaPostsContext = createContext<ISocialMediaPostsContext>({
@@ -27,7 +30,8 @@ export const SocialMediaPostsContext = createContext<ISocialMediaPostsContext>({
   createNewPost: () => {},
   hasMorePosts: true,
   createPostSuccess: null,
-  createPostError: null
+  createPostError: null,
+  initialGetPostsCall: () => {}
 })
 
 const SocialMediaPostsContextProvider: FC<{ children: ReactNode }> = ({
@@ -43,27 +47,26 @@ const SocialMediaPostsContextProvider: FC<{ children: ReactNode }> = ({
   const [createPostError, setCreatePostError] = useState<string | null>(null)
 
   const { token } = useContext(AuthenticationContext)
+  const initialGetPostsCall = useCallback(async () => {
+    try {
+      const response = await fetch("/posts/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`
+        }
+      })
+      const jsonResponse = await response.json()
+      setNextPostsLink(jsonResponse!.next)
+      setPosts(jsonResponse.results)
+    } catch (e) {
+      setError((e as Error).message)
+    }
+  }, [token])
 
   useEffect(() => {
-    setPosts([])
-    const apiCall = async () => {
-      try {
-        const response = await fetch("/posts/", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Token ${token}`
-          }
-        })
-        const jsonResponse = await response.json()
-        setNextPostsLink(jsonResponse!.next)
-        setPosts((prevState) => [...prevState, ...jsonResponse.results])
-      } catch (e) {
-        setError((e as Error).message)
-      }
-    }
-    apiCall()
-  }, [token])
+    initialGetPostsCall()
+  }, [initialGetPostsCall])
 
   const getNextPost = async () => {
     if (nextPostsLink) {
@@ -101,6 +104,7 @@ const SocialMediaPostsContextProvider: FC<{ children: ReactNode }> = ({
       })
       const jsonResponse = await response.json()
       setCreatePostSuccess(jsonResponse)
+      initialGetPostsCall()
     } catch (e) {
       setCreatePostError((e as Error).message)
     }
@@ -113,7 +117,8 @@ const SocialMediaPostsContextProvider: FC<{ children: ReactNode }> = ({
     createNewPost,
     hasMorePosts: !!nextPostsLink,
     createPostSuccess,
-    createPostError
+    createPostError,
+    initialGetPostsCall
   }
 
   return (
