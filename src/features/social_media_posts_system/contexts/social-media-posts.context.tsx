@@ -8,7 +8,6 @@ import {
   useState
 } from "react"
 import { APICallsContext } from "../../api_calls_context/api_calls_context"
-import { AuthenticationContext } from "../../login_feature/contexts/authentication.context"
 import ICreateSocialMedialPostFormFields from "../create_social_media_post/form/social_media_post_form_fields.interface"
 import PostModel from "../models/post.model"
 

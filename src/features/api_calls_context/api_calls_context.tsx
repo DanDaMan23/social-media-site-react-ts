@@ -1,4 +1,5 @@
 import { createContext, FC, ReactNode, useContext } from "react"
+import OverlaySpinner from "../../components/overlay_spinner/overlay_spinner"
 import { AuthenticationContext } from "../login_feature/contexts/authentication.context"
 
 interface IAPICallsContext {
@@ -40,6 +41,7 @@ export const APICallsContextProvider: FC<{ children: ReactNode }> = ({
 
   return (
     <APICallsContext.Provider value={contextValue}>
+      {/* <OverlaySpinner /> */}
       {children}
     </APICallsContext.Provider>
   )

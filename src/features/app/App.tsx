@@ -1,15 +1,15 @@
 import { FC } from "react"
-import Container from "react-bootstrap/Container"
+import { Container } from "react-bootstrap"
 import AuthenticationContextProvider from "../login_feature/contexts/authentication.context"
 import AppRouter from "./App.router"
 
 const App: FC = () => {
   return (
-    <Container>
-      <AuthenticationContextProvider>
+    <AuthenticationContextProvider>
+      <Container>
         <AppRouter />
-      </AuthenticationContextProvider>
-    </Container>
+      </Container>
+    </AuthenticationContextProvider>
   )
 }
 
