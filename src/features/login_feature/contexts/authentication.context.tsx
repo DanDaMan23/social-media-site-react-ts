@@ -1,27 +1,18 @@
 import { createContext, FC, ReactNode, useState } from "react"
 import { useNavigate } from "react-router"
 import { useSessionStorage } from "usehooks-ts"
-
-interface IFetchWrapper {
-  get: (link: string) => Promise<globalThis.Response>
-  post: (link: string, body: {}) => Promise<globalThis.Response>
-}
+import APICallsContextProvider from "../../api_calls_context/api_calls_context"
 
 interface IAuthenticationContext {
   token: string
   login: (username: string, password: string) => void
   error: string | null
-  fetchWrapper: IFetchWrapper
 }
 
 export const AuthenticationContext = createContext<IAuthenticationContext>({
   token: "",
   login: () => {},
-  error: null,
-  fetchWrapper: {
-    get: () => new Promise<globalThis.Response>(() => {}),
-    post: () => new Promise<globalThis.Response>(() => {})
-  }
+  error: null
 })
 
 const AuthenticationContextProvider: FC<{ children: ReactNode }> = ({
@@ -48,38 +39,15 @@ const AuthenticationContextProvider: FC<{ children: ReactNode }> = ({
     }
   }
 
-  const get = async (link: string) =>
-    await fetch(link, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${token}`
-      }
-    })
-
-  const post = async (link: string, body: {}) =>
-    await fetch(link, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${token}`
-      },
-      body: JSON.stringify(body)
-    })
-
   const contextValue: IAuthenticationContext = {
     token: token,
     login: loginHandler,
-    error: error,
-    fetchWrapper: {
-      get,
-      post
-    }
+    error: error
   }
 
   return (
     <AuthenticationContext.Provider value={contextValue}>
-      {children}
+      <APICallsContextProvider>{children}</APICallsContextProvider>
     </AuthenticationContext.Provider>
   )
 }

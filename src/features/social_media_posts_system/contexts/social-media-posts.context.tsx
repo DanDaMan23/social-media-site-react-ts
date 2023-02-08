@@ -7,6 +7,7 @@ import {
   useEffect,
   useState
 } from "react"
+import { APICallsContext } from "../../api_calls_context/api_calls_context"
 import { AuthenticationContext } from "../../login_feature/contexts/authentication.context"
 import ICreateSocialMedialPostFormFields from "../create_social_media_post/form/social_media_post_form_fields.interface"
 import PostModel from "../models/post.model"
@@ -45,9 +46,8 @@ const SocialMediaPostsContextProvider: FC<{ children: ReactNode }> = ({
   )
   const [createPostError, setCreatePostError] = useState<string | null>(null)
 
-  const {
-    fetchWrapper: { get, post }
-  } = useContext(AuthenticationContext)
+  const { get, post } = useContext(APICallsContext)
+
   const initialGetPostsCall = useCallback(async () => {
     try {
       const response = await get("/posts/")
