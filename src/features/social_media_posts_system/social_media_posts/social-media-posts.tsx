@@ -17,7 +17,7 @@ const SocialMediaPosts: FC = () => {
       loader={
         <div
           key='spinner'
-          style={{ display: "flex", justifyContent: "center" }}
+          style={{ display: "flex", justifyContent: "center", margin: 10 }}
         >
           <Spinner animation='border' />
         </div>
