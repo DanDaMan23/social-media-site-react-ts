@@ -1,6 +1,7 @@
 import { createContext, FC, ReactNode, useState } from "react"
 import { useNavigate } from "react-router"
 import { useSessionStorage } from "usehooks-ts"
+import APICallsContextProvider from "../../api_calls_context/api_calls_context"
 
 interface IAuthenticationContext {
   token: string
@@ -46,7 +47,7 @@ const AuthenticationContextProvider: FC<{ children: ReactNode }> = ({
 
   return (
     <AuthenticationContext.Provider value={contextValue}>
-      {children}
+      <APICallsContextProvider>{children}</APICallsContextProvider>
     </AuthenticationContext.Provider>
   )
 }

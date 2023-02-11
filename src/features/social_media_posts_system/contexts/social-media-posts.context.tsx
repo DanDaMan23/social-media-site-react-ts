@@ -4,10 +4,9 @@ import {
   ReactNode,
   useCallback,
   useContext,
-  useEffect,
   useState
 } from "react"
-import { AuthenticationContext } from "../../login_feature/contexts/authentication.context"
+import { APICallsContext } from "../../api_calls_context/api_calls_context"
 import ICreateSocialMedialPostFormFields from "../create_social_media_post/form/social_media_post_form_fields.interface"
 import PostModel from "../models/post.model"
 
@@ -19,7 +18,7 @@ interface ISocialMediaPostsContext {
   hasMorePosts: boolean
   createPostSuccess: string | null
   createPostError: string | null
-  initialGetPostsCall: () => void
+  initialGetPosts: () => void
 }
 
 export const SocialMediaPostsContext = createContext<ISocialMediaPostsContext>({
@@ -30,7 +29,7 @@ export const SocialMediaPostsContext = createContext<ISocialMediaPostsContext>({
   hasMorePosts: true,
   createPostSuccess: null,
   createPostError: null,
-  initialGetPostsCall: () => {}
+  initialGetPosts: () => {}
 })
 
 const SocialMediaPostsContextProvider: FC<{ children: ReactNode }> = ({
@@ -45,39 +44,27 @@ const SocialMediaPostsContextProvider: FC<{ children: ReactNode }> = ({
   )
   const [createPostError, setCreatePostError] = useState<string | null>(null)
 
-  const { token } = useContext(AuthenticationContext)
-  const initialGetPostsCall = useCallback(async () => {
+  const { get, post } = useContext(APICallsContext)
+
+  const initialGetPosts = useCallback(async () => {
     try {
-      const response = await fetch("/posts/", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Token ${token}`
-        }
-      })
+      const response = await get("/posts/")
+
       const jsonResponse = await response.json()
+
       setNextPostsLink(jsonResponse!.next)
       setPosts(jsonResponse.results)
+
     } catch (e) {
       setError((e as Error).message)
     }
-  }, [token])
-
-  useEffect(() => {
-    initialGetPostsCall()
-  }, [initialGetPostsCall])
+  }, [get])
 
   const getNextPost = async () => {
     if (nextPostsLink) {
       try {
         const { pathname, search } = new URL(nextPostsLink)
-        const response = await fetch(`${pathname}${search}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Token ${token}`
-          }
-        })
+        const response = await get(`${pathname}${search}`)
         const jsonResponse = await response.json()
         setNextPostsLink(jsonResponse!.next)
         setPosts((prevState) => [...prevState, ...jsonResponse.results])
@@ -91,19 +78,13 @@ const SocialMediaPostsContextProvider: FC<{ children: ReactNode }> = ({
     formFields: ICreateSocialMedialPostFormFields
   ) => {
     try {
-      const response = await fetch("/posts/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Token ${token}`
-        },
-        body: JSON.stringify({
-          content: formFields.postContent
-        })
+      const response = await post("/posts/", {
+        content: formFields.postContent
       })
+
       const jsonResponse = await response.json()
       setCreatePostSuccess(jsonResponse)
-      initialGetPostsCall()
+      initialGetPosts()
     } catch (e) {
       setCreatePostError((e as Error).message)
     }
@@ -117,7 +98,7 @@ const SocialMediaPostsContextProvider: FC<{ children: ReactNode }> = ({
     hasMorePosts: !!nextPostsLink,
     createPostSuccess,
     createPostError,
-    initialGetPostsCall
+    initialGetPosts
   }
 
   return (
