@@ -19,7 +19,7 @@ export const APICallsContextProvider: FC<{ children: ReactNode }> = ({
 
   const headers = {
     "Content-Type": "application/json",
-    Authorization: `Token ${token}`
+    Authorization: token && `Token ${token}`
   }
 
   const get = async (link: string) =>
