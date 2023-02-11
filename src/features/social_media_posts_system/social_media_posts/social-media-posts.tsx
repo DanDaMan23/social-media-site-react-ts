@@ -1,13 +1,17 @@
-import { FC, useContext } from "react"
+import { FC, useContext, useEffect } from "react"
 import InfiniteScroll from "react-infinite-scroller"
 import { Spinner, Stack } from "react-bootstrap"
 import { SocialMediaPostsContext } from "../contexts/social-media-posts.context"
 import SocialMediaPost from "./social_media_post/social-media-post"
 
 const SocialMediaPosts: FC = () => {
-  const { posts, getNextPost, hasMorePosts } = useContext(
+  const { posts, getNextPost, hasMorePosts, initialGetPosts } = useContext(
     SocialMediaPostsContext
   )
+
+  useEffect(() => {
+    initialGetPosts()
+  }, [initialGetPosts])
 
   return (
     <InfiniteScroll

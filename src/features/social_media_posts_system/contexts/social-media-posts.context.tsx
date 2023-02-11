@@ -4,7 +4,6 @@ import {
   ReactNode,
   useCallback,
   useContext,
-  useEffect,
   useState
 } from "react"
 import { APICallsContext } from "../../api_calls_context/api_calls_context"
@@ -19,7 +18,7 @@ interface ISocialMediaPostsContext {
   hasMorePosts: boolean
   createPostSuccess: string | null
   createPostError: string | null
-  initialGetPostsCall: () => void
+  initialGetPosts: () => void
 }
 
 export const SocialMediaPostsContext = createContext<ISocialMediaPostsContext>({
@@ -30,7 +29,7 @@ export const SocialMediaPostsContext = createContext<ISocialMediaPostsContext>({
   hasMorePosts: true,
   createPostSuccess: null,
   createPostError: null,
-  initialGetPostsCall: () => {}
+  initialGetPosts: () => {}
 })
 
 const SocialMediaPostsContextProvider: FC<{ children: ReactNode }> = ({
@@ -47,21 +46,19 @@ const SocialMediaPostsContextProvider: FC<{ children: ReactNode }> = ({
 
   const { get, post } = useContext(APICallsContext)
 
-  const initialGetPostsCall = useCallback(async () => {
+  const initialGetPosts = useCallback(async () => {
     try {
       const response = await get("/posts/")
+
       const jsonResponse = await response.json()
 
       setNextPostsLink(jsonResponse!.next)
       setPosts(jsonResponse.results)
+
     } catch (e) {
       setError((e as Error).message)
     }
   }, [get])
-
-  useEffect(() => {
-    initialGetPostsCall()
-  }, [initialGetPostsCall])
 
   const getNextPost = async () => {
     if (nextPostsLink) {
@@ -87,7 +84,7 @@ const SocialMediaPostsContextProvider: FC<{ children: ReactNode }> = ({
 
       const jsonResponse = await response.json()
       setCreatePostSuccess(jsonResponse)
-      initialGetPostsCall()
+      initialGetPosts()
     } catch (e) {
       setCreatePostError((e as Error).message)
     }
@@ -101,7 +98,7 @@ const SocialMediaPostsContextProvider: FC<{ children: ReactNode }> = ({
     hasMorePosts: !!nextPostsLink,
     createPostSuccess,
     createPostError,
-    initialGetPostsCall
+    initialGetPosts
   }
 
   return (
