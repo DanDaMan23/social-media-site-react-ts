@@ -42,6 +42,7 @@ export const APICallsContextProvider: FC<{ children: ReactNode }> = ({
 
   return (
     <APICallsContext.Provider value={contextValue}>
+      {/* TODO: implement overlay spinner while waiting for API call */}
       {false && <OverlaySpinner />}
       {children}
     </APICallsContext.Provider>
