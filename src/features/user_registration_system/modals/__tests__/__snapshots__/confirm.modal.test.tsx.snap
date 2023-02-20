@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`confirm.modal test should render modal when show is false 1`] = `
+<body
+  class=""
+  style="padding-right: 1024px;"
+>
+  <div />
+</body>
+`;
+
+exports[`confirm.modal test should render modal when show is true 1`] = `
+<body
+  class="modal-open"
+  data-rr-ui-modal-open=""
+  style="padding-right: 1024px;"
+>
+  <div />
+  <div
+    class="fade modal-backdrop show"
+  />
+  <div
+    aria-modal="true"
+    class="fade modal show"
+    role="dialog"
+    style="display: block; padding-right: 0px;"
+    tabindex="-1"
+  >
+    <div
+      class="modal-dialog"
+      id="mockId"
+    >
+      <div
+        class="modal-content"
+      >
+        <div
+          class="modal-header"
+        >
+          <div
+            class="modal-title h4"
+          >
+            Confirm Registration
+          </div>
+          <button
+            aria-label="Close"
+            class="btn-close"
+            type="button"
+          />
+        </div>
+        <div
+          class="modal-body"
+        >
+          <p>
+            Are your provided information correct?
+          </p>
+        </div>
+        <div
+          class="modal-footer"
+        >
+          <button
+            class="btn btn-secondary"
+            type="button"
+          >
+            No
+          </button>
+          <button
+            class="btn btn-primary"
+            type="button"
+          >
+            Yes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
