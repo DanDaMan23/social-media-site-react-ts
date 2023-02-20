@@ -3,8 +3,8 @@ import { BrowserRouter } from "react-router-dom"
 import { AuthenticationContext } from "../contexts/authentication.context"
 import LoginForm from "../Login.form"
 
-const renderLoginForm = (loginHandler: jest.Mock = jest.fn()) => {
-  return render(
+const renderLoginForm = (loginHandler: jest.Mock = jest.fn()) =>
+  render(
     <BrowserRouter>
       <AuthenticationContext.Provider
         value={{ token: "", login: loginHandler, error: "" }}
@@ -13,7 +13,6 @@ const renderLoginForm = (loginHandler: jest.Mock = jest.fn()) => {
       </AuthenticationContext.Provider>
     </BrowserRouter>
   )
-}
 
 describe("Login.form test", () => {
   it("Login form renders properly", () => {

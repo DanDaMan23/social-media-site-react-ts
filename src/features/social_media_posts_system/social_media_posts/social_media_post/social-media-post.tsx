@@ -6,14 +6,14 @@ interface ISocialMediaPost {
   user: string
   body: string
   date_created: Date
-  style: CSSProperties
+  style?: CSSProperties
 }
 
 const SocialMediaPost: FC<ISocialMediaPost> = ({
   user,
   body,
   date_created,
-  style
+  style = {}
 }) => {
   return (
     <Card style={style}>
