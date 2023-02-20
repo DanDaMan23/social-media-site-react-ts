@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`social-media-posts test should render correctly 1`] = `
+<div>
+  <div>
+    <div
+      class="vstack gap-3 minBreakpoint-xs"
+    >
+      <div
+        class="card"
+        style="background: rgb(208, 228, 234);"
+      >
+        <div
+          class="card-body"
+        >
+          <div
+            class="card-title h5"
+          >
+            mockUser
+          </div>
+          <p
+            class="card-text"
+          >
+            Hello World
+          </p>
+          <small>
+            December 31, 2021 6:00 PM
+          </small>
+        </div>
+      </div>
+      <div
+        class="card"
+      >
+        <div
+          class="card-body"
+        >
+          <div
+            class="card-title h5"
+          >
+            mockUser2
+          </div>
+          <p
+            class="card-text"
+          >
+            Hello World
+          </p>
+          <small>
+            January 1, 2022 6:00 PM
+          </small>
+        </div>
+      </div>
+      <div
+        class="card"
+        style="background: rgb(208, 228, 234);"
+      >
+        <div
+          class="card-body"
+        >
+          <div
+            class="card-title h5"
+          >
+            mockUser3
+          </div>
+          <p
+            class="card-text"
+          >
+            Hello World
+          </p>
+          <small>
+            January 2, 2022 6:00 PM
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

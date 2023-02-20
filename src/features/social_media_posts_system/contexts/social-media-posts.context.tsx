@@ -10,10 +10,10 @@ import { APICallsContext } from "../../api_calls_context/api_calls_context"
 import ICreateSocialMedialPostFormFields from "../create_social_media_post/form/social_media_post_form_fields.interface"
 import PostModel from "../models/post.model"
 
-interface ISocialMediaPostsContext {
+export interface ISocialMediaPostsContext {
   posts: PostModel[]
   error: string | null
-  getNextPost: () => void
+  getNextPosts: () => void
   createNewPost: (formFields: ICreateSocialMedialPostFormFields) => void
   hasMorePosts: boolean
   createPostSuccess: string | null
@@ -24,7 +24,7 @@ interface ISocialMediaPostsContext {
 export const SocialMediaPostsContext = createContext<ISocialMediaPostsContext>({
   posts: [],
   error: null,
-  getNextPost: () => {},
+  getNextPosts: () => {},
   createNewPost: () => {},
   hasMorePosts: true,
   createPostSuccess: null,
@@ -60,7 +60,7 @@ const SocialMediaPostsContextProvider: FC<{ children: ReactNode }> = ({
     }
   }, [get])
 
-  const getNextPost = async () => {
+  const getNextPosts = async () => {
     if (nextPostsLink) {
       try {
         const { pathname, search } = new URL(nextPostsLink)
@@ -93,7 +93,7 @@ const SocialMediaPostsContextProvider: FC<{ children: ReactNode }> = ({
   const contextValue: ISocialMediaPostsContext = {
     posts,
     error,
-    getNextPost,
+    getNextPosts,
     createNewPost,
     hasMorePosts: !!nextPostsLink,
     createPostSuccess,

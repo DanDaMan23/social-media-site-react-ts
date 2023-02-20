@@ -5,7 +5,7 @@ import { SocialMediaPostsContext } from "../contexts/social-media-posts.context"
 import SocialMediaPost from "./social_media_post/social-media-post"
 
 const SocialMediaPosts: FC = () => {
-  const { posts, getNextPost, hasMorePosts, initialGetPosts } = useContext(
+  const { posts, getNextPosts, hasMorePosts, initialGetPosts } = useContext(
     SocialMediaPostsContext
   )
 
@@ -16,7 +16,7 @@ const SocialMediaPosts: FC = () => {
   return (
     <InfiniteScroll
       pageStart={0}
-      loadMore={getNextPost}
+      loadMore={getNextPosts}
       hasMore={hasMorePosts}
       loader={
         <div
