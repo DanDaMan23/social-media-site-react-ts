@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`social-media-posts.system test should render correctly 1`] = `
+<body>
+  <div>
+    <h1>
+      Social Media Posts System
+    </h1>
+    <div
+      style="display: flex; justify-content: flex-end; margin: 10px;"
+    >
+      <button
+        class="btn btn-primary"
+        type="button"
+      >
+        Create Post
+      </button>
+    </div>
+    <div>
+      <div
+        class="vstack gap-3 minBreakpoint-xs"
+      />
+    </div>
+  </div>
+</body>
+`;
