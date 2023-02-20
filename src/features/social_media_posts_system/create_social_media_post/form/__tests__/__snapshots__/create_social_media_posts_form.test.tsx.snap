@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`create_social_media_posts_form test should render correctly 1`] = `
+<div>
+  <form
+    class=""
+  >
+    <div
+      class="mb-3"
+    >
+      <textarea
+        class="form-control"
+        id="postContent"
+        rows="10"
+      />
+    </div>
+  </form>
+</div>
+`;
