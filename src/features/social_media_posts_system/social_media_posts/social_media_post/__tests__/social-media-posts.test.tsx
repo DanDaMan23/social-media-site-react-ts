@@ -7,7 +7,7 @@ describe("social-media-posts test", () => {
       <SocialMediaPost
         user='mockUser'
         body='mockBody'
-        date_created={new Date()}
+        date_created={new Date("2023-01-01")}
       />
     )
 
@@ -19,7 +19,7 @@ describe("social-media-posts test", () => {
       <SocialMediaPost
         user='mockUser'
         body='mockBody'
-        date_created={new Date()}
+        date_created={new Date("2023-01-01")}
         style={{ color: "red" }}
       />
     )

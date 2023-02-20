@@ -19,7 +19,7 @@ exports[`social-media-posts test should render correctly 1`] = `
         mockBody
       </p>
       <small>
-        February 19, 2023 11:38 PM
+        December 31, 2022 6:00 PM
       </small>
     </div>
   </div>
@@ -46,7 +46,7 @@ exports[`social-media-posts test should render correctly with custom styles 1`] 
         mockBody
       </p>
       <small>
-        February 19, 2023 11:38 PM
+        December 31, 2022 6:00 PM
       </small>
     </div>
   </div>
