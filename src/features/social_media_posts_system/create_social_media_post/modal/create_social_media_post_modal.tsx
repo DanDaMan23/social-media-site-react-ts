@@ -5,7 +5,7 @@ import { SocialMediaPostsContext } from "../../contexts/social-media-posts.conte
 import CreateSocialMedialPostForm from "../form/create_social_media_post_form"
 import ICreateSocialMedialPostFormFields from "../form/social_media_post_form_fields.interface"
 
-interface ICreateSocialMedialPostModal {
+export interface ICreateSocialMedialPostModal {
   show: boolean
   onClose: () => void
 }

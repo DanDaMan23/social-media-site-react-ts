@@ -3,7 +3,7 @@ import { Form } from "react-bootstrap"
 import { UseFormRegister } from "react-hook-form"
 import ICreateSocialMedialPostFormFields from "./social_media_post_form_fields.interface"
 
-interface ICreateSocialMedialPostForm {
+export interface ICreateSocialMedialPostForm {
   register: UseFormRegister<ICreateSocialMedialPostFormFields>
 }
 
