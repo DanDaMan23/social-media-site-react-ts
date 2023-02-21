@@ -44,17 +44,26 @@ describe("create-posts-modal test", () => {
     expect(baseElement).toMatchSnapshot()
   })
 
-  it("should check when submit button can be clicked or not", async () => {
+  it("should be able to create a new post with valid form", async () => {
     renderCreateModal()
 
     const postContentInput = screen.getByLabelText("Post Content")
     const submitButton = screen.getByText("Submit")
 
     fireEvent.change(postContentInput, { target: { value: "Hello World" } })
-    fireEvent.submit(submitButton)
 
     await waitFor(() => {
-      expect(submitButton).not.toBeDisabled()
+      expect(submitButton).toBeEnabled()
+    })
+  })
+
+  it("should not be able to create a new post with invalid form", async () => {
+    renderCreateModal()
+
+    const submitButton = screen.getByText("Submit")
+
+    await waitFor(() => {
+      expect(submitButton).toBeDisabled()
     })
   })
 })
