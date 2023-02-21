@@ -8,6 +8,13 @@ exports[`create_social_media_posts_form test should render correctly 1`] = `
     <div
       class="mb-3"
     >
+      <label
+        class="form-label"
+        for="postContent"
+        hidden=""
+      >
+        Post Content
+      </label>
       <textarea
         class="form-control"
         id="postContent"

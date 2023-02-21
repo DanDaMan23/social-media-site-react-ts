@@ -13,6 +13,7 @@ const CreateSocialMedialPostForm: FC<ICreateSocialMedialPostForm> = ({
   return (
     <Form>
       <Form.Group className='mb-3' controlId='postContent'>
+        <Form.Label hidden>Post Content</Form.Label>
         <Form.Control
           {...register("postContent", { required: true, maxLength: 255 })}
           as='textarea'

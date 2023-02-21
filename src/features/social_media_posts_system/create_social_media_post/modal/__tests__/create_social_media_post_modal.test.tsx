@@ -43,4 +43,18 @@ describe("create-posts-modal test", () => {
 
     expect(baseElement).toMatchSnapshot()
   })
+
+  it("should check when submit button can be clicked or not", async () => {
+    renderCreateModal()
+
+    const postContentInput = screen.getByLabelText("Post Content")
+    const submitButton = screen.getByText("Submit")
+
+    fireEvent.change(postContentInput, { target: { value: "Hello World" } })
+    fireEvent.submit(submitButton)
+
+    await waitFor(() => {
+      expect(submitButton).not.toBeDisabled()
+    })
+  })
 })
