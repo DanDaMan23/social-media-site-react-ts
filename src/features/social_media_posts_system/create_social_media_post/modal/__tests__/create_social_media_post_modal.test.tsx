@@ -66,4 +66,18 @@ describe("create-posts-modal test", () => {
       expect(submitButton).toBeDisabled()
     })
   })
+
+  it("should close the modal", async () => {
+    const mockOnClose = jest.fn()
+
+    renderCreateModal({ onClose: mockOnClose })
+
+    const closeButton = screen.getByText("Close")
+
+    fireEvent.click(closeButton)
+
+    await waitFor(() => {
+      expect(mockOnClose).toHaveBeenCalled()
+    })
+  })
 })
